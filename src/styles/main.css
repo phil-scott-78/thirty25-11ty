@@ -8,6 +8,10 @@ body {
     background-color: theme('colors.gray.100');
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    @media (max-width: 640px) {
+        padding: theme('spacing.4');
+    }
 }
 
 body > header {
@@ -49,6 +53,11 @@ main > header {
         font-weight: theme('fontWeight.extrabold');
         font-size: theme('fontSize.5xl');
         line-height: theme('lineHeight.tight');
+
+        @media (max-width: 640px) {
+            font-weight: theme('fontWeight.bold');
+            font-size: theme('fontSize.2xl');
+        }
     }
 
     & .nav {

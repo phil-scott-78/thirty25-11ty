@@ -10,8 +10,6 @@ tags:
 layout: layouts/post.njk
 ---
 
-# Playing with EF Core 5 and Stack Overflow Data
-
 Entity Framework Core 5 is starting to take shape with Preview 7 being released in late July. When I need to play with
 new data code, I like to use the [Stack Exchange Data Dump ](https://archive.org/details/stackexchange). These are The
 schema is simple enough, but with the variety of sized databases you can grab one that has enough data to make querying

@@ -27,10 +27,6 @@ module.exports = {
                         },
                     },
                     pre: {
-                        marginLeft: '-' + defaultTheme.spacing[4],
-                        marginRight: '-' + defaultTheme.spacing[4],
-                        paddingLeft: defaultTheme.spacing[4],
-                        paddingRight: defaultTheme.spacing[4],
                         lineHeight: defaultTheme.lineHeight.snug,
                     },
                     'pre code': {
