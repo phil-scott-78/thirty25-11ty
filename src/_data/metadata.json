@@ -1,0 +1,16 @@
+{
+    "title": "Phil Scott's Postings",
+    "url": "https://thirty25.com/",
+    "description": "A collection of my bad ideas and questionable architectural decisions.",
+    "feed": {
+        "subtitle": "A collection of my bad ideas and questionable architectural decisions.",
+        "filename": "feed.xml",
+        "path": "/feed/feed.xml",
+        "url": "https://thirty25.com/feed/feed.xml",
+        "id": "https://thirty25.com/"
+    },
+    "author": {
+        "name": "Phil Scott",
+        "email": "phil.scott@gmail.com"
+    }
+}

@@ -1,32 +1,57 @@
 {
-  "name": "eleventy-base-blog",
-  "version": "5.0.0",
-  "description": "A starter repository for a blog web site using the Eleventy static site generator.",
-  "scripts": {
-    "build": "eleventy",
-    "watch": "eleventy --watch",
-    "debug": "DEBUG=* eleventy"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/11ty/eleventy-base-blog.git"
-  },
-  "author": {
-    "name": "Zach Leatherman",
-    "email": "zachleatherman@gmail.com",
-    "url": "https://zachleat.com/"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/11ty/eleventy-base-blog/issues"
-  },
-  "homepage": "https://github.com/11ty/eleventy-base-blog#readme",
-  "devDependencies": {
-    "@11ty/eleventy": "^0.9.0",
-    "@11ty/eleventy-plugin-rss": "^1.0.7",
-    "@11ty/eleventy-plugin-syntaxhighlight": "^2.0.3",
-    "luxon": "^1.12.0",
-    "markdown-it": "^8.4.2",
-    "markdown-it-anchor": "^5.0.2"
-  }
+    "name": "eleventy-base-blog",
+    "version": "5.0.0",
+    "description": "A starter repository for a blog web site using the Eleventy static site generator.",
+    "scripts": {
+        "build": "eleventy",
+        "watch": "eleventy --watch",
+        "serve": "eleventy --serve",
+        "debug": "DEBUG=* eleventy",
+        "clean": "rimraf _site",
+        "start": "npm-run-all clean --parallel dev:*",
+        "dev:postcss": "postcss src/styles/main.css -d _site/styles/ --config ./postcss.config.js -w",
+        "dev:eleventy": "eleventy --watch",
+        "dev:bsync": "browser-sync start --server ./_site -w --no-open --no-notify --no-ghost-mode"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/11ty/eleventy-base-blog.git"
+    },
+    "author": {
+        "name": "Zach Leatherman",
+        "email": "zachleatherman@gmail.com",
+        "url": "https://zachleat.com/"
+    },
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/11ty/eleventy-base-blog/issues"
+    },
+    "homepage": "https://github.com/11ty/eleventy-base-blog#readme",
+    "devDependencies": {
+        "@11ty/eleventy": "^0.11.0",
+        "@11ty/eleventy-plugin-rss": "^1.0.7",
+        "@11ty/eleventy-plugin-syntaxhighlight": "^3.0.1",
+        "autoprefixer": "^9.8.6",
+        "luxon": "^1.12.0",
+        "markdown-it": "^11.0.0",
+        "markdown-it-anchor": "^5.0.2",
+        "npm-run-all": "^4.1.5",
+        "postcss": "^7.0.32",
+        "postcss-cli": "^7.1.1",
+        "postcss-css-variables": "^0.17.0",
+        "postcss-nested": "^4.2.3",
+        "postcss-partial-import": "^4.1.0",
+        "postcss-preset-env": "^6.7.0",
+        "rimraf": "^3.0.2",
+        "stylelint": "^13.6.1",
+        "stylelint-config-standard": "^20.0.0"
+    },
+    "dependencies": {
+        "@tailwindcss/typography": "^0.2.0",
+        "eleventy-plugin-excerpt": "^1.1.2",
+        "eleventy-plugin-tailwindcss": "^0.2.4",
+        "postcss-clean": "^1.1.0",
+        "postcss-import": "^12.0.1",
+        "tailwindcss": "^1.7.4"
+    }
 }

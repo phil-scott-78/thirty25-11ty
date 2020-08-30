@@ -1,0 +1,25 @@
+---
+layout: layouts/content.njk
+tags:
+  - nav
+navtitle: Home
+title: Latest Stuff
+---
+{% import "layouts/postContent.njk" as postContent  %}
+
+{% set postslist = collections.posts | head(-3) %}
+
+<div class="postlist">
+    {% for post in postslist | reverse %}
+        <section class="postlist-item">
+            <dl>
+                <dt class="sr-only">Published on</dt>
+                <dd><time>{{ post.date | readableDate }}</time></dd>
+            </dl>
+            <article>
+                <h3><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
+                {% excerpt post %}
+            </article>
+        </section>
+    {% endfor %}
+</div>
