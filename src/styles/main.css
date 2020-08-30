@@ -123,6 +123,10 @@ main {
                         margin-top: theme('spacing.4');
                     }
                 }
+
+                & p.read-more {
+                    font-size: theme('fontSize.sm');
+                }
             }
         }
     }
