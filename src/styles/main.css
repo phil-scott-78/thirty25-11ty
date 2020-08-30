@@ -92,6 +92,10 @@ main {
                 margin-bottom: theme('spacing.4');
                 grid-column-start: 2;
                 grid-row-start: 1;
+
+                @media (max-width: theme('screens.md')) {
+                    margin-bottom: theme('spacing.1');
+                }
             }
 
             & > .meta {
@@ -101,10 +105,15 @@ main {
 
                 @media (max-width: theme('screens.md')) {
                     width: theme('width.full');
+                    margin-bottom: theme('spacing.4');
                 }
 
                 & > dl {
                     padding-top: theme('spacing.2');
+
+                    @media (max-width: theme('screens.md')) {
+                        padding-top: 0;
+                    }
                 }
             }
 
