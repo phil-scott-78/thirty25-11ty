@@ -30,9 +30,9 @@ module.exports = (eleventyConfig) => {
         return array.slice(0, n);
     });
 
-    // eleventyConfig.addCollection('tagList', require('./_11ty/getTagList'));
+    eleventyConfig.addCollection('tagList', require('./_11ty/getTagList'));
 
-    eleventyConfig.addPassthroughCopy('src/img');
+    eleventyConfig.addPassthroughCopy('src/img/**/*');
 
     /* Markdown Plugins */
     let markdownIt = require('markdown-it');

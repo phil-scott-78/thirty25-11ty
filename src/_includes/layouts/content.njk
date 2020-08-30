@@ -6,6 +6,10 @@ layout: layouts/base.njk
     <header>
         <h1 class="home">{{ renderData.title or title or metadata.title }}</h1>
         {% if date %}Posted <time>{{ date | readableDate }}</time> {% endif %}
+        {% if tags %}
+            {% set tagslist = tags %}
+            {% include "taglist.njk" %}
+        {% endif %}
     </header>
 
     {{ content | safe }}

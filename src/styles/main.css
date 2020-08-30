@@ -8,10 +8,8 @@ body {
     background-color: theme('colors.gray.100');
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-
-    @media (max-width: 640px) {
-        padding: theme('spacing.4');
-    }
+    padding: theme('spacing.4');
+    overflow-y: scroll;
 }
 
 body > header {
@@ -31,64 +29,115 @@ body > header {
 
     padding-top: theme('spacing.4');
     padding-bottom: theme('spacing.4');
-    max-width: theme('maxWidth.3xl');
+    max-width: theme('maxWidth.4xl');
     margin: theme('margin.auto');
 }
 
 main {
-    max-width: theme('maxWidth.3xl');
+    max-width: theme('maxWidth.4xl');
     margin: theme('margin.auto');
     margin-bottom: theme('spacing.8');
-}
+    margin-top: theme('spacing.8');
 
-main > header {
-    max-width: theme('maxWidth.3xl');
-    margin: theme('margin.auto');
-    margin-top: theme('margin.8');
-    padding-bottom: theme('spacing.4');
-    margin-bottom: theme('spacing.4');
+    @media (max-width: theme('screens.md')) {
+        margin-top: theme('spacing.2');
+    }
 
-    & h1 {
-        font-family: theme('fontFamily.serif');
-        font-weight: theme('fontWeight.extrabold');
-        font-size: theme('fontSize.5xl');
-        line-height: theme('lineHeight.tight');
+    & > header {
+        max-width: theme('maxWidth.4xl');
+        margin: theme('margin.auto');
+        padding-bottom: theme('spacing.4');
+        margin-bottom: theme('spacing.4');
 
-        @media (max-width: 640px) {
-            font-weight: theme('fontWeight.bold');
-            font-size: theme('fontSize.2xl');
+        & h1 {
+            font-family: theme('fontFamily.serif');
+            font-weight: theme('fontWeight.extrabold');
+            font-size: theme('fontSize.5xl');
+            line-height: theme('lineHeight.snug');
+
+            @media (max-width: theme('screens.md')) {
+                font-weight: theme('fontWeight.bold');
+                font-size: theme('fontSize.3xl');
+            }
+        }
+
+        & .nav {
+            margin-top: theme('margin.8');
+            color: theme('colors.gray.400');
+        }
+
+        & .description {
+            color: theme('colors.gray.700');
         }
     }
 
-    & .nav {
-        margin-top: theme('margin.8');
-        color: theme('colors.gray.400');
-    }
+    & .postlist {
+        & section {
+            margin-bottom: theme('spacing.8');
+            padding-bottom: theme('spacing.8');
+            border-bottom: 1px solid theme('colors.gray.300');
+            display: grid;
+            grid-template-columns: theme('width.1/4') theme('width.3/4');
+            grid-template-rows: auto auto;
 
-    & .description {
-        color: theme('colors.gray.700');
-    }
-}
+            @media (max-width: theme('screens.md')) {
+                display: block;
+                margin-bottom: theme('spacing.4');
+                padding-bottom: theme('spacing.4');
+            }
 
-main .postlist {
-    & section {
-        margin-bottom: theme('spacing.8');
-        padding-bottom: theme('spacing.8');
-        border-bottom: 1px solid theme('colors.gray.300');
-        display: flex;
-
-        & > dl {
-            width: theme('width.1/4');
-        }
-
-        & > article {
-            width: theme('width.3/4');
-
-            & h3 {
+            & h2 {
                 font-size: theme('fontSize.2xl');
                 font-weight: theme('fontWeight.semibold');
                 margin-bottom: theme('spacing.4');
+                grid-column-start: 2;
+                grid-row-start: 1;
             }
+
+            & > .meta {
+                grid-column-start: 1;
+                grid-row-start: 1;
+                padding-right: theme('spacing.4');
+
+                @media (max-width: theme('screens.md')) {
+                    width: theme('width.full');
+                }
+
+                & > dl {
+                    padding-top: theme('spacing.2');
+                }
+            }
+
+            & > article {
+                grid-column-start: 2;
+                grid-row-start: 2;
+
+                @media (max-width: theme('screens.md')) {
+                    width: theme('width.full');
+                }
+
+                & div.tags {
+                    margin-top: theme('spacing.6');
+
+                    @media (max-width: theme('screens.md')) {
+                        margin-top: theme('spacing.4');
+                    }
+                }
+            }
+        }
+    }
+
+    & div.tags {
+        line-height: theme('lineHeight.9');
+
+        & > a {
+            padding: 2px 6px;
+            margin-right: theme('spacing.1');
+            font-size: theme('fontSize.xs');
+            background-color: theme('colors.gray.200');
+            border: 1px solid theme('colors.indigo.200');
+            border-radius: theme('borderRadius.default');
+            white-space: nowrap;
         }
     }
 }

@@ -1,7 +1,9 @@
 ---
 layout: layouts/content.njk
 ---
-{% import "layouts/postContent.njk" as postContent  %}
 
-{{ postContent.fullPost(title, content)}}
-
+<div>
+    <article class="prose max-w-4xl">
+    {{ content | safe }}
+    </article>
+</div>
