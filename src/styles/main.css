@@ -23,7 +23,8 @@ body > header {
     }
 
     & img {
-        height: theme('fontSize.5xl');
+        height: 3rem;
+        width: 3rem;
         padding-right: theme('spacing.2');
     }
 
@@ -88,7 +89,7 @@ main {
 
             & h2 {
                 font-size: theme('fontSize.2xl');
-                font-weight: theme('fontWeight.semibold');
+                font-weight: theme('fontWeight.medium');
                 margin-bottom: theme('spacing.4');
                 grid-column-start: 2;
                 grid-row-start: 1;

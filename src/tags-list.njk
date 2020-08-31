@@ -1,10 +1,10 @@
 ---
 permalink: /tags/
 layout: layouts/content.njk
+title: All Tags
 ---
-<h1>Tags</h1>
 
-{% for tag in collections.tagList %}
-  {% set tagUrl %}/tags/{{ tag }}/{% endset %}
-  <a href="{{ tagUrl | url }}" class="tag">{{ tag }}</a>
-{% endfor %}
+
+
+{% set tagslist = collections.tagList %}
+{% include "taglist.njk" %}

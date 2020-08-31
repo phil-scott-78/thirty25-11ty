@@ -10,6 +10,7 @@ module.exports = {
             fontFamily: {
                 sans: ['Poppins', ...defaultTheme.fontFamily.sans],
                 serif: ['Merriweather', ...defaultTheme.fontFamily.serif],
+                mono: ['Cascadia Code', ...defaultTheme.fontFamily.mono],
             },
         },
         typography: (t) => ({
@@ -18,25 +19,24 @@ module.exports = {
                     color: defaultTheme.colors.gray[900],
                     a: {
                         color: defaultTheme.colors.blue[700],
-                        fontWeight: defaultTheme.fontWeight.normal,
                         borderBottomWidth: '1px',
                         borderBottomColor: defaultTheme.colors.blue[700],
+                        fontWeight: defaultTheme.fontWeight.light,
                         textDecoration: 'none',
                         '&:hover': {
                             color: defaultTheme.colors.blue[600],
+                            borderBottomColor: defaultTheme.colors.blue[600],
                         },
                     },
                     pre: {
                         lineHeight: defaultTheme.lineHeight.snug,
                     },
                     'pre code': {
-                        fontWeight: 300,
-                        fontFamily: "'Cascadia Code', Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;",
+                        fontWeight: defaultTheme.fontWeight.light,
                         lineHeight: '1.5em',
                     },
                     code: {
-                        fontFamily: "'Cascadia Code', Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;",
-                        fontWeight: 300,
+                        fontWeight: defaultTheme.fontWeight.light,
                         color: defaultTheme.colors.gray[900],
                         background: defaultTheme.colors.gray[200],
                         borderColor: defaultTheme.colors.gray[400],
