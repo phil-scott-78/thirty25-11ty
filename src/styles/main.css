@@ -13,6 +13,11 @@ body {
 }
 
 body > header {
+    & > nav {
+        margin: theme('margin.auto');
+        max-width: theme('maxWidth.4xl');
+    }
+
     & h1 {
         font-family: theme('fontFamily.serif');
         font-size: theme('fontSize.xl');
@@ -25,23 +30,37 @@ body > header {
     & img {
         height: 3rem;
         width: 3rem;
-        padding-right: theme('spacing.2');
+        margin-right: theme('spacing.2');
+
+        @media (max-width: theme('screens.md')) {
+            margin-left: theme('spacing.4');
+        }
     }
 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: theme('width.full');
+    background: theme('colors.gray.100');
+    box-shadow: theme('boxShadow.xs');
     padding-top: theme('spacing.4');
     padding-bottom: theme('spacing.4');
-    max-width: theme('maxWidth.4xl');
-    margin: theme('margin.auto');
+    z-index: 1000;
+
+    @media (max-width: theme('screens.md')) {
+        padding-top: theme('spacing.2');
+        padding-bottom: theme('spacing.2');
+    }
 }
 
 main {
     max-width: theme('maxWidth.4xl');
     margin: theme('margin.auto');
     margin-bottom: theme('spacing.8');
-    margin-top: theme('spacing.8');
+    margin-top: theme('spacing.20');
 
     @media (max-width: theme('screens.md')) {
-        margin-top: theme('spacing.2');
+        margin-top: theme('spacing.16');
     }
 
     & > header {
