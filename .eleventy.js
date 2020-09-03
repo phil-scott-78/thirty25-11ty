@@ -3,6 +3,7 @@ const fs = require('fs');
 const pluginRss = require('@11ty/eleventy-plugin-rss');
 const pluginSyntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 const excerpt = require('eleventy-plugin-excerpt');
+const { timeStamp } = require('console');
 
 module.exports = (eleventyConfig) => {
     eleventyConfig.addPlugin(pluginRss);
@@ -29,6 +30,22 @@ module.exports = (eleventyConfig) => {
 
         return array.slice(0, n);
     });
+
+    var date = new Date();
+    var ts = date.getTime();
+
+    eleventyConfig.addFilter(
+        'tsUrl',
+        /**
+         * @param {string} url
+         */ function (url) {
+            const [urlPart, paramPart] = url.split('?');
+            const params = new URLSearchParams(paramPart || '');
+            params.set('ts', `${ts}`);
+            console.log(params);
+            return `${urlPart}?${params}`;
+        },
+    );
 
     eleventyConfig.addCollection('tagList', require('./_11ty/getTagList'));
 
