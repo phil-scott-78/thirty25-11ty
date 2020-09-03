@@ -2,12 +2,12 @@
     "routes": [
         {
             "src": "/img/(.*)",
-            "headers": { "cache-control": "s-maxage=604800" },
+            "headers": { "cache-control": "max-age=604800" },
             "dest": "/img/$1"
         },
         {
             "src": "/styles/(.*)",
-            "headers": { "cache-control": "s-maxage=604800" },
+            "headers": { "cache-control": "max-age=604800" },
             "dest": "/styles/$1"
         }
     ]
