@@ -7,11 +7,12 @@ tags:
     - entity-framework
     - stack-overflow
     - sqlserver
+repository: https://github.com/thirty25/ef-core-5-and-stackoverflow
 layout: layouts/post.njk
 ---
 
 Entity Framework Core 5 is starting to take shape with Preview 7 being released in late July. When I need to play with
-new data code, I like to use the [Stack Exchange Data Dump ](https://archive.org/details/stackexchange). These are The
+new data code, I like to use the [Stack Exchange Data Dump](https://archive.org/details/stackexchange). These are The
 schema is simple enough, but with the variety of sized databases you can grab one that has enough data to make querying
 against a SQL Server a little more like live fire especially when looking at execution plans.
 
@@ -165,7 +166,7 @@ with the following comment. It'll disable inspections for the entire file.
 Another option would be to move the generated models and context into their own folder that is marked as generated in
 your Resharper or Rider Options.
 
-![Rider Settings Pacge](/docs/generated-files-settings.png)
+![Rider Settings Page](/img/blog/ef-core-5-and-stackoverflow/generated-files-settings.png)
 
 When you save these make sure to save them to your Team Shared Settings. This will create a
 `solution-name.sln.dotsettings` file that you should commit to source control. Without this file in source control other

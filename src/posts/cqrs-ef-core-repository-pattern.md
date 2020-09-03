@@ -4,6 +4,7 @@ description: Creating a repository of questionable value around an EF Core DbCon
 date: 2020-08-26
 tags:
     - entity-framework
+repository: https://github.com/thirty25/cqrs-ef-core-repository-pattern
 layout: layouts/post.njk
 ---
 
@@ -189,6 +190,57 @@ public IQueryable<T> Query<T>(
 }
 ```
 
+## Problem 3 - DbContextFactory Management
+
+With EF Core 5 preview 7 Microsoft
+[shipped a context factory](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-ef-core-5-0-preview-7/#dbcontextfactory)
+out of the box with EF Core. Many people have rolled their own implementation, but if you haven't ran across this
+pattern the added benefit of using a factory comes when you are relying on dependency injection. Take for example a
+controller taking in a `DbContext` as a dependency.
+
+In our scenario maybe we are doing some basic validation on the command that is requested. If it doesn't meet our rules
+we send back a `BadRequest` without touching the database. But if our constructor is asking for `DbContext` that means
+ASP.NET is gonna build up an instance even though we don't need one. Even for a simple context this can be at least 20ms
+of time and allocations we don't need. By using a factory ASP.NET will give us an instance of the factory, which by
+default is a singleton. So in our `BadRequest` example there would be now zero allocations and no time spent building
+the context.
+
+The downside is we must now manage the lifetime of the context. This can be done pretty simply with an `using`
+statement, but that is still one more thing to worry about while writing code and doing code reviews. If we've gone
+through the trouble of creating our repository we might as well do this once here.
+
+Now our constructor of our repository will look something like this
+
+```csharp
+private readonly Lazy<TContext> _context;
+
+public CommandRepository(IDbContextFactory<TContext> contextFactory)
+{
+    _context = new Lazy<TContext>(contextFactory.CreateDbContext);
+}
+```
+
+Because `_context` is now lazy we'll need to adjust our instance methods to use the `.Value` property
+
+```csharp
+public Task SaveChangesAsync() => _context.Value.SaveChangesAsync();
+public DbSet<T> Set<T>() where T : class => _context.Value.Set<T>();
+public DbSet<T> Set<T>(Func<TContext, DbSet<T>> action) where T : class
+    => action.Invoke(_context.Value);
+```
+
+and we'll also need to dispose because that's the whole reason we are going through this trouble
+
+```csharp
+public void Dispose()
+{
+    if (_context.IsValueCreated) _context.Value.Dispose();
+}
+```
+
+Assuming we adjust our container properly we shouldn't have to adjust any of our code. A more complete example might
+toss the `Lazy` altogether and reduce our allocations even further.
+
 ## Pros and Cons
 
 Obviously this usage isn't for everyone. But I find by restricting the surface of `DbContext` on commands plus enhancing
@@ -219,3 +271,6 @@ Obviously this usage isn't for everyone. But I find by restricting the surface o
 The code in the repository is configured using Lamar as a container with a SQLite backend to demonstrate what would be
 closer to real world usage. It also expands upon the repositories to include a `Set` and `Query` method that accept a
 lambda to allow code such as `Query(i => i.Blogs)` for better discoverability of the context's `DbSet` members.
+
+To demonstrate the `IDbContextFactory` we are targetting EF Core 5 preview bits which require .NET Standard 2.1. The
+CQRS portion works fine in EF Core 3 as long as you rework the constructor to take a `DbContext` directly.
