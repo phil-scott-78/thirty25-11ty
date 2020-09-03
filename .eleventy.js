@@ -31,6 +31,11 @@ module.exports = (eleventyConfig) => {
         return array.slice(0, n);
     });
 
+    /*
+    set the timestamp outside of the filter, otherwise
+    each time it's use the files will have a subtly different timestamp
+    which if the same two static files are included it throws things off
+    */
     var date = new Date();
     var ts = date.getTime();
 
@@ -42,7 +47,6 @@ module.exports = (eleventyConfig) => {
             const [urlPart, paramPart] = url.split('?');
             const params = new URLSearchParams(paramPart || '');
             params.set('ts', `${ts}`);
-            console.log(params);
             return `${urlPart}?${params}`;
         },
     );
@@ -50,6 +54,7 @@ module.exports = (eleventyConfig) => {
     eleventyConfig.addCollection('tagList', require('./_11ty/getTagList'));
 
     eleventyConfig.addPassthroughCopy('src/img/**/*');
+    eleventyConfig.addPassthroughCopy('src/posts/img/**/*');
 
     /* Markdown Plugins */
     let markdownIt = require('markdown-it');

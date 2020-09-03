@@ -57,8 +57,8 @@ public class Invoice
 }
 ```
 
-Threw this into a console application, hit run aaaand....it worked. No errror. I had already reproduced the issue using
-FluentValidation so I knew the error could be trigged from this console app. Stumped for now I took the dog for a walk
+Threw this into a console application, hit run aaaand....it worked. No error. I had already reproduced the issue using
+FluentValidation so I knew the error could be triggered from this console app. Stumped for now I took the dog for a walk
 and some fresh air. While walking I started thinking that the compiler shouldn't care about EF, but rather maybe the
 collections being of type `IQueryable<>` was causing the lambdas to be compiled differently. I headed back inside and
 threw an `AsQueryable()` onto the end of both definitions and hit run and....jackpot. Got the failure message, and I was
@@ -101,10 +101,10 @@ would be a long road to hoe if I didn't come up with a better plan.
 
 Still, I now had the code running locally. So now I could get to work. It was time to try and track down precisely when
 things broke. Hopefully with that information I could see what changed and figure out how to get it back to a working
-state. A quick look at the difference between what's in VS 2015 Update 3 and VS15 unfortately provide slightly
+state. A quick look at the difference between what's in VS 2015 Update 3 and VS15 unfortunately provide slightly
 overwhelming.
 
-![3,700 commits](/img/blog/how-i-fixed-roslyn/commits.png)
+![3,700 commits](/posts/img/blog/how-i-fixed-roslyn/commits.png)
 
 But I did have a powerful thing at my disposal. My reproducable test case was an actual program. I can automate this.
 Git has a nice tool called [`bisect`](https://git-scm.com/docs/git-bisect) just for this. TLDR of `git bisect` if you
@@ -178,7 +178,7 @@ and over again. I needed a unit test. I found a file named
 [CodeGenExprLambdaTests](https://github.com/dotnet/roslyn/blob/master/src/Compilers/CSharp/Test/Emit/CodeGen/CodeGenExprLambdaTests.cs)
 and figured this was as good as place as any to write my test. Opening this up I discovered a suite of tests that were
 verifying compiler output and executing the results. Perfect! All I had to do was mimic their style and hopefully I
-would be in business. Even better I noticed Resharper picked up the tests so just maybe I could use Resharper to only
+would be in business. Even better I noticed ReSharper picked up the tests so just maybe I could use ReSharper to only
 run the test I was working on. In retrospect I probably should have started here, but oh well.
 
 Thanks to a little copy and paste development from one of the existing tests I was able they have a nice way to run the
@@ -271,7 +271,7 @@ So it looks like they are caching previously generated expressions if they match
 one out that doesn't have a matching return type. Running the test through the debugger everything else seemed to jive,
 just not this. This makes sense - in the release version the `Debug.Assert` wouldn't be there, but rather it would keep
 moving forward and return the expression body for a lambda that was close but didn't have the right return type. That's
-why I was only seeing it on complex joins and the such - I needed one statements where I had a similiar lambda that
+why I was only seeing it on complex joins and the such - I needed one statements where I had a similar lambda that
 returned an int, and the same lambda with a slightly different return type. Subtle.
 
 Now to fix. Looking at the end of the if statement I saw there was a check for `InferredFromSingleType` so I suspected
@@ -296,6 +296,6 @@ wouldn't introduce any issues thanks to its relatively local scope, I didn't hav
 changing things related to how things were being compared for that object. I wasn't sure what behavior was really
 expected. But a few days later I noticed a new issue pop up sparked by my PR
 [new issue](https://github.com/dotnet/roslyn/issues/14774) around this. Looks like as I suspected my fix is just a
-bandaid, and the caching is in fact the true bug. I fully expect this issue's fix will cause my little addition to the
+bandage, and the caching is in fact the true bug. I fully expect this issue's fix will cause my little addition to the
 compiler to go away, but that's ok. Hopefully my test will remain to verify the behavior, and even if my tiny bit of
 code isn't running in the compiler I'm still pretty happy to be able to contribute to something like Roslyn.

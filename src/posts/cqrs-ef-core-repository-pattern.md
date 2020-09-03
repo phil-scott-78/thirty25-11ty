@@ -97,9 +97,9 @@ public IQueryable<T> Query<T>(
 Our new `Query` method now takes 3 optional parameter marked with
 [caller information](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/attributes/caller-information).
 If you aren't familiar with these attributes the compiler will automatically populate those fields with the appropriate
-values. Keep in mind that they are populated by the compiler and not at runtime so there won't be a performance
-penality. One gotcha here is we need to make sure our interface also has the same attributes. Without both the interface
-and implementation having the interfaces you'll get the default values.
+values. Keep in mind that they are populated by the compiler and not at runtime so there won't be a performance penalty.
+One gotcha here is we need to make sure our interface also has the same attributes. Without both the interface and
+implementation having the interfaces you'll get the default values.
 
 Now when we rerun our our original LINQ query, we generated SQL somewhat like the following
 
@@ -143,7 +143,7 @@ doing queries and commands is sometimes useful. One way I like to enforce this i
 a query repository.
 
 For our purposes we'll split `IRepository<T>` into `ICommandRepository<T>` and `IQueryRepository<T>`. Query repository
-stays the same with just a `Query` method. That's all it needs. We won't be updating the data when issueing our queries
+stays the same with just a `Query` method. That's all it needs. We won't be updating the data when issuing our queries
 so no need for anything else. Our command repository we'll add a simple `SaveChangesAsync()` and `Set<T>` for working
 directly with the `DbSet` and persisting the data.
 
@@ -167,11 +167,11 @@ await commandRepository.SaveChangesAsync();
 ```
 
 Not a ton of value being added, even though it is nice having two implementations that are explicit on their use. But
-there is one EF detail that we can include in our query repostiory. Our `QueryRepository` will never return data that
+there is one EF detail that we can include in our query repository. Our `QueryRepository` will never return data that
 will be used for updates in a `DbContext`. We don't even have a method to persist it if we wanted. With EF when you are
 querying data it makes sense to also call `AsNoTracking()`. By default,
 [EF will include tracking details](https://docs.microsoft.com/en-us/ef/core/querying/tracking) when we query. This data
-can become quite combersome over time and introduces a performance penality when all we want is read-only data. When we
+can become quite cumbersome over time and introduces a performance penalty when all we want is read-only data. When we
 are using our `QueryRepository` that is precisely what we are doing so let's include it. Now our implementation while
 simple is providing a much better foundation for queries.
 
@@ -272,5 +272,5 @@ The code in the repository is configured using Lamar as a container with a SQLit
 closer to real world usage. It also expands upon the repositories to include a `Set` and `Query` method that accept a
 lambda to allow code such as `Query(i => i.Blogs)` for better discoverability of the context's `DbSet` members.
 
-To demonstrate the `IDbContextFactory` we are targetting EF Core 5 preview bits which require .NET Standard 2.1. The
-CQRS portion works fine in EF Core 3 as long as you rework the constructor to take a `DbContext` directly.
+To demonstrate the `IDbContextFactory` we are targeting EF Core 5 preview bits which require .NET Standard 2.1. The CQRS
+portion works fine in EF Core 3 as long as you rework the constructor to take a `DbContext` directly.
