@@ -63,6 +63,10 @@ main {
         margin-top: theme('spacing.16');
     }
 
+    & a {
+        color: theme('colors.blue.700');
+    }
+
     & > header {
         max-width: theme('maxWidth.4xl');
         margin: theme('margin.auto');
@@ -187,6 +191,46 @@ main {
             height: 1.5rem;
             width: 1.5rem;
             margin-right: 1rem;
+        }
+    }
+
+    & > nav.pagination {
+        & ol {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+
+            & li {
+                margin-right: theme('spacing.4');
+                color: theme('colors.gray.500');
+
+                @media (max-width: theme('screens.md')) {
+                    & a span.page-description {
+                        display: none;
+                    }
+                }
+            }
+
+            & li:first-child {
+                flex-grow: 1;
+            }
+
+            & li:last-child {
+                flex-grow: 1;
+                text-align: right;
+                margin-right: 0;
+            }
+
+            & a {
+                border: 1px solid transparent;
+                padding: theme('spacing.1') theme('spacing.2');
+                border-radius: theme('borderRadius.default');
+            }
+
+            & [aria-current] {
+                background-color: theme('colors.indigo.100');
+                border: 1px solid theme('colors.indigo.200');
+            }
         }
     }
 }

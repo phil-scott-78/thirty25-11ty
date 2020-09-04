@@ -1,12 +1,22 @@
 ---
 layout: layouts/content.njk
-tags:
-  - nav
 navtitle: Archive
-permalink: /posts/
+pagination:
+  data: collections.posts
+  size: 5
+  alias: paggedPosts
+  reverse: true
 ---
 
-<h1>Archive</h1>
-
-{% set postslist = collections.posts %}
+{% set postslist = paggedPosts  %}
 {% include "postslist.njk" %}
+
+<nav class="pagination">
+  <ol>
+    <li>{% if pagination.href.previous %}<a href="{{ pagination.href.previous }}">Previous</a>{% else %}Previous{% endif %}</li>
+{%- for pageEntry in pagination.pages %}
+    <li><a href="{{ pagination.hrefs[ loop.index0 ] }}"{% if page.url == pagination.hrefs[ loop.index0 ] %} aria-current="page"{% endif %}><span class="page-description">Page</span> {{ loop.index }}</a></li>
+{%- endfor %}
+    <li>{% if pagination.href.next %}<a href="{{ pagination.href.next }}">Next</a>{% else %}Next{% endif %}</li>
+  </ol>
+</nav>

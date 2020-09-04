@@ -1,5 +1,5 @@
 <div class="tags">
-    {% for tag in tagslist %} {%- if tag != "posts" -%} {% set tagUrl %}/tags/{{ tag }}/{% endset %}
+    {% for tag in tagslist %} {%- if tag != "posts" and tag != "nav" -%} {% set tagUrl %}/tags/{{ tag }}/{% endset %}
     <a href="{{ tagUrl | url }}" class="tag">{{ tag }}</a>
     {%- endif -%} {% endfor %}
 </div>

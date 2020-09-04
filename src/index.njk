@@ -3,5 +3,8 @@ layout: layouts/content.njk
 navtitle: Home
 title: Latest Posts
 ---
-{% set postslist = collections.posts | head(-3) %}
+{% set postslist = (collections.posts | head(-3)) | reverse %}
+
 {% include "postslist.njk" %}
+
+<p><a href="{{ '/archive/' | url }}">Archive</a></p>

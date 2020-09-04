@@ -4,8 +4,6 @@ description: How to add tags to your EF Core queries, and how to automatically g
 date: 2020-09-02
 tags:
     - entity-framework
-    - stack-overflow
-    - sqlserver
 repository: https://github.com/thirty25/ef-core-tagging
 layout: layouts/post.njk
 ---
