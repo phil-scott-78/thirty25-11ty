@@ -12,7 +12,7 @@
             <article>
                 <div class="prose">
                     {% excerpt post %}
-                    <p class="read-more"><a aria-label="{{ post.data.title }}" href="{{ post.url }}">Read more</a></p>
+                    <p class="read-more"><a aria-label="{{ post.data.title }}" href="{{ post.url }}">Read more <span class="sr-only">about {{ post.data.title }} </span></a></p>
                 </div>
 
                 {% set tagslist = post.data.tags %}
