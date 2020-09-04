@@ -3,7 +3,6 @@ const fs = require('fs');
 const pluginRss = require('@11ty/eleventy-plugin-rss');
 const pluginSyntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 const excerpt = require('eleventy-plugin-excerpt');
-const { timeStamp } = require('console');
 
 module.exports = (eleventyConfig) => {
     eleventyConfig.addPlugin(pluginRss);
@@ -50,6 +49,20 @@ module.exports = (eleventyConfig) => {
             return `${urlPart}?${params}`;
         },
     );
+
+    eleventyConfig.addFilter('vercelUrl', function (url) {
+        var base = process.env.VERCEL_URL;
+        if (!base) {
+            base = 'localhost:3000';
+        }
+
+        if (!base.startsWith('http')) {
+            base = 'https://' + base;
+        }
+
+        var u = new URL(url, base);
+        return u.toString();
+    });
 
     eleventyConfig.addCollection('tagList', require('./_11ty/getTagList'));
 

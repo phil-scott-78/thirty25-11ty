@@ -19,13 +19,13 @@
             type="application/atom+xml"
             title="{{ metadata.title }}"
         />
-        <% if title %>
+        {%- if title -%}
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="{{ metadata.twitter }}" />
         <meta name="twitter:title" content="{{ title }}" />
         <meta name="twitter:description" content="{{ description }}" />
-        <meta name="twitter:image" content="{{ '/img/avatar.png' | url | tsUrl }}" />
-        <% endif %>
+        <meta name="twitter:image" content="{{ '/img/avatar.png' | url | tsUrl | vercelUrl }}" />
+        {%- endif -%}
     </head>
     <body>
         <header>
