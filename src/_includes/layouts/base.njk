@@ -5,10 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{{ renderData.title or title or metadata.title }} | {{ metadata.title }}</title>
         <meta name="Description" content="{{ renderData.description or description or metadata.description }}" />
+        <link rel="preload" href="{{ '/styles/main.css' | url | tsUrl }}" as="style">
         <link rel="icon" href="{{ '/img/avatar.svg' | url | tsUrl }}" />
-        <link rel="stylesheet" href="{{ '/styles/main.css' | url | tsUrl }}" />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+        <link rel="stylesheet" href="{{ '/styles/main.css' | url | tsUrl }}" />
+
         <link
             href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;700;900&family=Poppins:wght@300;500;700&display=swap"
             rel="stylesheet"
