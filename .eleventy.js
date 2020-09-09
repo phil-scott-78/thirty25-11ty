@@ -79,6 +79,11 @@ module.exports = (eleventyConfig) => {
 
     eleventyConfig.setLibrary('md', markdownIt(options));
 
+    eleventyConfig.addShortcode('copyrightDate', function () {
+        var date = new Date();
+        return date.getFullYear().toString();
+    });
+
     eleventyConfig.setBrowserSyncConfig({
         callbacks: {
             ready: function (err, browserSync) {

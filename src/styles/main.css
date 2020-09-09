@@ -8,8 +8,26 @@ body {
     background-color: theme('colors.gray.100');
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    padding: theme('spacing.4');
     overflow-y: scroll;
+}
+
+body > footer {
+    & a {
+        color: theme('colors.blue.700');
+    }
+
+    & span.copyright {
+        margin: theme('margin.auto');
+        padding: 0 theme('padding.4');
+        max-width: theme('maxWidth.4xl');
+        display: block;
+        font-size: theme('fontSize.sm');
+        text-align: center;
+    }
+
+    padding: theme('spacing.8');
+    width: theme('width.full');
+    border-top: 1px solid theme('colors.gray.200');
 }
 
 body > header {
@@ -57,10 +75,11 @@ main {
     max-width: theme('maxWidth.4xl');
     margin: theme('margin.auto');
     margin-bottom: theme('spacing.8');
-    margin-top: theme('spacing.20');
+    margin-top: theme('spacing.24');
 
     @media (max-width: theme('screens.md')) {
         margin-top: theme('spacing.16');
+        padding: theme('spacing.4');
     }
 
     & a {
