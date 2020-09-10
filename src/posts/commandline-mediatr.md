@@ -78,10 +78,9 @@ will want a service location we'll also add dependency injection into our consol
 little bit more work up front, but it'll provide the value as we add and test each new verb.
 
 For my project I'm going to use [Lamar](https://jasperfx.github.io/lamar/) as my container. There is nothing special
-Lamar is bringing to the table here over any other IoC container so feel free to use your tool of choice. You should be
-able to mold one of the
-[projects from the MediatR samples libraries](https://github.com/jbogard/MediatR/tree/master/samples) to get your
-registration correct.
+Lamar is bringing to the table over any other IoC container so feel free to use your tool of choice. You should be able
+to mold one of the [projects from the MediatR samples libraries](https://github.com/jbogard/MediatR/tree/master/samples)
+to get your registration correct.
 
 ## Setting up our Console App
 
@@ -93,8 +92,8 @@ dotnet add package MediatR
 dotnet add package CommandLineParser
 ```
 
-Now we need to create our options. We'll stick with the CommandLineParser example and add a couple of settings so we can
-see them in action. Add these classes each in their own in a corresponding file
+Now we need to create our project's verbs. We'll stick with the `CommandLineParser` example and add a couple of verbs so
+we can see them in action. Add these classes each in their own in a corresponding file
 
 ```csharp
 // e.g. consoleapp add myfile.txt
@@ -123,9 +122,9 @@ public class CloneOptions
 }
 ```
 
-If you've worked with CommandLineParser in the past, there isn't anything new here. But we do need to tell MediatR that
-we'll be using them. We'll need to make each of these classes implement `IRequest<int>`. This tells MediatR that this is
-a request that will return an int.
+If you've worked with `CommandLineParser` in the past, there isn't anything new here. But we do need to tell MediatR
+that we'll be using them. We'll need to make each of these classes implement `IRequest<int>`. This tells MediatR that
+this is a request that will return an int.
 
 Now our options look should be looking like this.
 
