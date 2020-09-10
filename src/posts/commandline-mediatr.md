@@ -136,9 +136,18 @@ public class CloneOptions : IRequest<int> {/*...*/}
 ```
 
 Now that MediatR knows what our requests look like, we need to add a handler for each one of them. I prefer to create
-the handler side by side with the request. The syntax for your handler will be
+the handler side by side with the request in one single file. The syntax for your handler along with the request will
+give you one file that looks like this
 
 ```csharp
+// e.g. consoleapp commit -m "my message"
+[Verb("commit", HelpText = "Record changes to the repository.")]
+public class CommitOptions
+{
+    [Option('m', "Message", HelpText = "Message for commit")]
+    public string Message { get; set; }
+}
+
 public class CommitHandler : IRequestHandler<CommitOptions, int>
 {
     public async Task<int> Handle(CommitOptions request, CancellationToken cancellationToken)
@@ -433,3 +442,34 @@ public class CommandLineParsingTests
 
 By being able to test the syntax of your commands what options are being created you can quickly troubleshoot issues
 with command line syntax errors without needing to execute commands.
+
+## Is This All Worth It?
+
+Much like adding MediatR to an ASP.NET Core app, we need to weight the pros and cons of using it in a console app.
+
+### Pros
+
+-   Consistent coding structure. By using the mediator pattern we have a consistent structure to each of our commands
+    from how they are defined all the way to how they are executed.
+-   Testability. With each verb in its own handler testing the code outside of `Program.Main` becomes much easier.
+-   Leverage existing code. I've added small command line apps that support larger ASP.NET Core apps. With so much
+    infrastructure configuration being done via our container configuration with ASP.NET being able to have a shared
+    container can sometimes prove quite valuable.
+-   Easy of maintenance. To add a new command we don't need to mess with the entry point of the application.
+-   Extensibility. Just like using MediatR in ASP.NET, using it in a console app allows new extensibility options. For
+    example we could add [FluentValidation](https://fluentvalidation.net/) as a behavior to have a consistent validation
+    story. Or we could configure our DI container differently if a `--dry-run` parameter is passed.
+
+### Cons
+
+-   More complexity in starting a new project. Not gonna lie, I had to copy and paste from some code I wrote a while ago
+    on how to pull a generic object out of the command line parser. Thankfully we only need to write this one.
+-   For simple apps dealing with an IoC container is just silly. Creating a new instance of a class or even just
+    leveraging static methods is just fine for small console apps. No need for all this ceremony.
+-   Unfamiliar code structure. Those who haven't encountered MediatR struggle with figuring out how it all ties
+    together. There is no right click and "Go To Handler" in Visual Studio that tells you what executes next, and stack
+    traces can get out of control.
+
+All those points being equal, my breaking point for going this route is the addition of verbs to my console app. If our
+console app has one path (or a UI) then MediatR just gets in the way. But once we start growing and adding verbs the
+work at first pays off every time we add a new on.
