@@ -1,7 +1,7 @@
 ---
 title: UsedImplicitly on External Libraries
 description: How to use ExternalAnnotations to apply UsedImplicitly on third party libraries in your CQRS application.
-date: 2020-09-09
+date: 2020-09-10
 tags:
     - MediatR
     - AutoMapper
@@ -107,7 +107,7 @@ Given this we can now generate our full annotation
 ```
 
 The 5 in this case comes from the flag `ImplicitUseTargetFlags` definition. We want `WithInheritors` and we might as
-well all `Itself` too.
+well add `Itself` too.
 
 ```csharp
 [Flags]
